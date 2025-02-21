@@ -1,0 +1,43 @@
+import SwiftUI
+
+struct StudentListView: View {
+    @State private var students: [String] = []
+    @State private var newStudentName: String = ""
+
+    var body: some View {
+        VStack {
+            Text("Student List")
+                .font(.largeTitle)
+                .padding()
+
+            List(students, id: \.self) { student in
+                Text(student)
+            }
+
+            HStack {
+                TextField("Enter student name", text: $newStudentName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+
+                Button(action: addStudent) {
+                    Text("Add")
+                }
+                .padding()
+            }
+        }
+        .padding()
+    }
+
+    private func addStudent() {
+        if !newStudentName.isEmpty {
+            students.append(newStudentName)
+            newStudentName = ""
+        }
+    }
+}
+
+struct StudentListView_Previews: PreviewProvider {
+    static var previews: some View {
+        StudentListView()
+    }
+}
